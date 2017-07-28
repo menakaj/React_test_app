@@ -29,7 +29,6 @@ class Step2 extends Component {
 }
 
 class CreateApplication extends Component {
-
     render() {
         console.log("IN Create application");
         return (
