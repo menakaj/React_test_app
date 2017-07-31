@@ -10,15 +10,19 @@ class App extends Component {
 
     constructor() {
         super();
-        this.apps = this.getApps();
-        this.user = "Menak";
+        this.state = {
+            apps: []
+        };
+        this.user = "Menaka";
     }
 
-    getApps(){
-        return [
+    componentWillMount() {
+        //Call the backend api and get the existing apps.
+        this.setState({apps : [
             {name: "App1", version:"v1.0", platform: "android.jpg", state:"Published"},
             {name: "App2", version:"v1.1", platform: "android.jpg", state:"InReview"}
-        ]
+            ]
+        });
     }
 
     getUser() {
@@ -54,7 +58,7 @@ class App extends Component {
                             {/*checkAppsPresent();*/}
                             <Redirect exact from="/" to="/app/create" />
                             <Route path="/app/create" component={CreateApplication}/>
-                            <Route path="/apps" render={props => (<AppList apps={this.apps}/>)}/>
+                            <Route path="/apps" render={props => (<AppList apps={this.state.apps}/>)}/>
                         </Switch>
                     </div>
                 </Router>
@@ -72,8 +76,8 @@ class App extends Component {
   }
 
   checkAppsPresent() {
-        if (this.apps) {
-            return <AppList apps={this.apps} />
+        if (this.state.apps) {
+            return <AppList apps={this.state.apps} />
         } else {
             return ("No apps");
         }
